@@ -13,6 +13,7 @@
 # Package Files #
 *.jar
 !gradle/wrapper/gradle-wrapper.jar
+!.mvn/wrapper/maven-wrapper.jar
 *.war
 *.nar
 *.ear
@@ -30,3 +31,7 @@ hs_err_pid*
 build
 
 .idea
+
+target
+
+*.iml
