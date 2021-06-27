@@ -18,9 +18,12 @@ pipeline {
                 sh './mvnw test'
             }
         }
+
         stage('Sonar') {
             steps {
-                sh './mvnw sonar:sonar -Dsonar.projectKey=contrazt -Dsonar.host.url=http://sonar-service:9000 -Dsonar.login=36060419677b4c37197d1d6688d79e7a90495757'
+                withCredentials([string(credentialsId: 'sonar_contrazt_token', variable: 'SONAR_TOKEN')]) {
+                    sh './mvnw sonar:sonar -Dsonar.projectKey=contrazt -Dsonar.host.url=http://sonar-service:9000 -Dsonar.login=$SONAR_TOKEN'
+                }
             }
         }
     }
