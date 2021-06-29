@@ -1,4 +1,4 @@
-package com.github.zaragozamartin91;
+package io.github.zaragozamartin91;
 
 /**
  * Hello world!
