@@ -1,4 +1,4 @@
-package io.github.zaragozamartin91.util;
+package io.github.zaragozamartin91.contrazt.util;
 
 import java.util.function.Function;
 

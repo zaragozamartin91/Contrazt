@@ -1,4 +1,4 @@
-package io.github.zaragozamartin91.usecase;
+package io.github.zaragozamartin91.contrazt.usecase;
 
 import java.util.Optional;
 import java.util.function.Consumer;

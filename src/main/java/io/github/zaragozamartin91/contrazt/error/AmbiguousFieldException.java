@@ -1,4 +1,4 @@
-package io.github.zaragozamartin91.error;
+package io.github.zaragozamartin91.contrazt.error;
 
 public class AmbiguousFieldException extends RuntimeException {
     public AmbiguousFieldException(String message) {

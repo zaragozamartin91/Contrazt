@@ -1,8 +1,8 @@
-package io.github.zaragozamartin91.usecase;
+package io.github.zaragozamartin91.contrazt.usecase;
 
 
-import io.github.zaragozamartin91.error.AmbiguousFieldException;
-import io.github.zaragozamartin91.util.Try;
+import io.github.zaragozamartin91.contrazt.error.AmbiguousFieldException;
+import io.github.zaragozamartin91.contrazt.util.Try;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
