@@ -1,5 +1,6 @@
 package io.github.zaragozamartin91.contrazt.usecase;
 
+import io.github.zaragozamartin91.contrazt.main.Maybe;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -16,7 +17,7 @@ class GetNestedFieldValueByNameTest {
 
         Nested1 nested1 = new Nested1("one", 2L, 3);
 
-        Optional<Integer> result = usecase.apply(nested1, "bar.bash.zort");
+        Maybe<Integer> result = usecase.apply(nested1, "bar.bash.zort");
         assertTrue(result.isPresent());
         assertEquals(3, result.get());
     }
@@ -27,7 +28,7 @@ class GetNestedFieldValueByNameTest {
 
         Nested1 nested1 = new Nested1("one", 2L, 3);
 
-        Optional<Integer> result = usecase.apply(nested1, "bar.missing.zort");
+        Maybe<Integer> result = usecase.apply(nested1, "bar.missing.zort");
         assertFalse(result.isPresent());
     }
 
