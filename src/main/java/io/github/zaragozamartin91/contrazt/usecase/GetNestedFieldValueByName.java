@@ -1,5 +1,6 @@
 package io.github.zaragozamartin91.contrazt.usecase;
 
+import io.github.zaragozamartin91.contrazt.main.FieldTuple;
 import io.github.zaragozamartin91.contrazt.main.Maybe;
 
 import java.util.ArrayDeque;
@@ -22,18 +23,19 @@ public class GetNestedFieldValueByName {
     }
 
     // search for
-    public <T> Maybe<T> apply(Object obj, String fieldName) {
+    public Maybe<FieldTuple> apply(Object obj, String fieldName) {
         validateFieldName.accept(fieldName);
         String[] fieldNameSegments = fieldName.split(Pattern.quote("."));
         ArrayDeque<String> fieldNames = new ArrayDeque<>(Arrays.asList(fieldNameSegments));
-        return doApply(obj, fieldNames);
+        return doApply(obj, fieldNames, null);
     }
 
-    public <T> Maybe<T> doApply(Object currObj, Deque<String> fieldNames) {
+    private Maybe<FieldTuple> doApply(Object currObj, Deque<String> fieldNames, FieldTuple result) {
         String fieldName = fieldNames.poll();
         return fieldName == null ?
-                Maybe.of(currObj).map(this::cast) :
-                getFieldByName.apply(currObj, fieldName).flatMap(obj -> doApply(obj, fieldNames));
+                Maybe.of(result) :
+                getFieldByName.apply(currObj, fieldName)
+                        .flatMap(fieldValue -> doApply(fieldValue.getValue(), fieldNames, fieldValue));
     }
 
     @SuppressWarnings("unchecked")

@@ -1,6 +1,7 @@
 package io.github.zaragozamartin91.contrazt.main;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -34,6 +35,8 @@ public class Maybe<T> {
         return exists;
     }
 
+    public boolean missing() { return !exists(); }
+
     /**
      * Returns true if a value EXISTS and is different from null.
      *
@@ -55,5 +58,22 @@ public class Maybe<T> {
 
     public T get() {
         return this.toOptional().orElseThrow(NoSuchElementException::new);
+    }
+
+    public T orNull() {
+        return this.toOptional().orElse(null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Maybe<?> other = (Maybe<?>) o;
+        return this.exists == other.exists && Objects.equals(this.value, other.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, exists);
     }
 }

@@ -2,6 +2,7 @@ package io.github.zaragozamartin91.contrazt.usecase;
 
 
 import io.github.zaragozamartin91.contrazt.error.AmbiguousFieldException;
+import io.github.zaragozamartin91.contrazt.main.FieldTuple;
 import io.github.zaragozamartin91.contrazt.main.Maybe;
 import io.github.zaragozamartin91.contrazt.util.Try;
 import org.junit.jupiter.api.Test;
@@ -28,10 +29,10 @@ public class GetFieldValueByNameTest {
         Arrays.stream(declaredFields)
                 .forEach(field -> {
                     field.setAccessible(true);
-                    Optional<?> result = usecase.apply(foo, field.getName()).toOptional();
+                    Optional<FieldTuple> result = usecase.apply(foo, field.getName()).toOptional();
                     Object fieldValue = Try.<Field, Object>unchecked(f -> f.get(foo)).apply(field);
                     assertTrue(result.isPresent());
-                    assertEquals(fieldValue, result.get());
+                    assertEquals(fieldValue, result.get().getValue());
                 });
 
         verify(validateFieldName, times(declaredFields.length)).accept(anyString());
@@ -48,10 +49,11 @@ public class GetFieldValueByNameTest {
         Arrays.stream(declaredFields)
                 .forEach(field -> {
                     field.setAccessible(true);
-                    Optional<?> result = usecase.apply(foo, field.getName().toUpperCase()).toOptional();
+                    Optional<FieldTuple> result =
+                            usecase.apply(foo, field.getName().toUpperCase()).toOptional();
                     Object fieldValue = Try.<Field, Object>unchecked(f -> f.get(foo)).apply(field);
                     assertTrue(result.isPresent());
-                    assertEquals(fieldValue, result.get());
+                    assertEquals(fieldValue, result.get().getValue());
                 });
 
         verify(validateFieldName, times(declaredFields.length)).accept(anyString());
@@ -73,7 +75,7 @@ public class GetFieldValueByNameTest {
 
         Foo foo = new Foo("foo", 123L);
 
-        Maybe<Object> result = usecase.apply(foo, "missing_Field");
+        Maybe<FieldTuple> result = usecase.apply(foo, "missing_Field");
         assertFalse(result.isPresent());
         assertFalse(result.exists());
     }

@@ -1,6 +1,6 @@
 package io.github.zaragozamartin91.contrazt.main;
 
-public enum FieldDiffResult {
+public enum FieldDiffStatus {
     /**
      * Field exists on both objects and their values are equal
      */
@@ -13,6 +13,10 @@ public enum FieldDiffResult {
      * Field is present and their values are NOT equal
      */
     VALUE_MISMATCH,
+    /**
+     * Field types are different
+     */
+    TYPE_MISMATCH,
     /**
      * Field does not exist on the left side, but is present on the right side
      */

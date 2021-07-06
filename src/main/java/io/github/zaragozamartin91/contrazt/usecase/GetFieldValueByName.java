@@ -1,6 +1,7 @@
 package io.github.zaragozamartin91.contrazt.usecase;
 
 import io.github.zaragozamartin91.contrazt.error.AmbiguousFieldException;
+import io.github.zaragozamartin91.contrazt.main.FieldTuple;
 import io.github.zaragozamartin91.contrazt.main.Maybe;
 import io.github.zaragozamartin91.contrazt.util.Try;
 
@@ -20,7 +21,7 @@ public class GetFieldValueByName {
         this.validateFieldName = validateFieldName;
     }
 
-    public <T> Maybe<T> apply(Object obj, String fieldName) {
+    public Maybe<FieldTuple> apply(Object obj, String fieldName) {
         validateFieldName.accept(fieldName);
         Class<?> clazz = obj.getClass();
 
@@ -36,16 +37,11 @@ public class GetFieldValueByName {
             case 1:
                 Field field = matchingFields.get(0);
                 field.setAccessible(true);
-                Object fieldValue = Try.<Field, Object>unchecked(ff -> ff.get(obj)).apply(field);
-                return Maybe.of(this.cast(fieldValue));
+                Object value = Try.<Field, Object>unchecked(ff -> ff.get(obj)).apply(field);
+                return Maybe.of(new FieldTuple(value.getClass(), value));
             default:
                 throw new AmbiguousFieldException("There are more than one matching fields with name " + fieldName);
         }
-    }
-
-    @SuppressWarnings("unchecked")
-    private <U> U cast(Object value) {
-        return (U) value;
     }
 
     private boolean fieldMatches(Field f, String fieldName) {
