@@ -33,8 +33,8 @@ public class DoubleContrazt {
         FieldTuple sv = second.orNull();
 
         return first.missing() && second.missing() ? new FieldDiff(stdFieldName, fv, sv, NOT_FOUND)
-                : first.exists() && second.missing() ? new FieldDiff(stdFieldName, fv, sv, MISSING_RIGHT)
-                : first.missing() && second.exists() ? new FieldDiff(stdFieldName, fv, sv, MISSING_LEFT)
+                : first.exists() && second.missing() ? new FieldDiff(stdFieldName, fv, sv, MISSING_SECOND)
+                : first.missing() && second.exists() ? new FieldDiff(stdFieldName, fv, sv, MISSING_FIRST)
                 : first.get().differentTypeAs(second.get()) ? new FieldDiff(stdFieldName, fv, sv, TYPE_MISMATCH)
                 : first.get().sameValueAs(second.get()) ? new FieldDiff(stdFieldName, fv, sv, EQUAL)
                 : new FieldDiff(stdFieldName, fv, sv, VALUE_MISMATCH);

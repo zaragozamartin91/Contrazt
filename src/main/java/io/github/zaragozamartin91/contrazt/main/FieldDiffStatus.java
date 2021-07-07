@@ -20,9 +20,9 @@ public enum FieldDiffStatus {
     /**
      * Field does not exist on the left side, but is present on the right side
      */
-    MISSING_LEFT,
+    MISSING_FIRST,
     /**
      * Field does exist on the left side, but is not present on the right side
      */
-    MISSING_RIGHT;
+    MISSING_SECOND
 }
