@@ -34,9 +34,4 @@ public class GetNestedFieldValueByName {
                 getFieldByName.apply(currObj, fieldName)
                         .flatMap(fieldValue -> doApply(fieldValue.getValue(), fieldNames, fieldValue));
     }
-
-    @SuppressWarnings("unchecked")
-    private <U> U cast(Object value) {
-        return (U) value;
-    }
 }

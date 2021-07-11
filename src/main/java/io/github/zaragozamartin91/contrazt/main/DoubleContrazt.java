@@ -44,7 +44,7 @@ public class DoubleContrazt {
     }
 
     public List<FieldDiff> compareAllFields() {
-        GetAllFieldNames getAllFieldNames = new GetAllFieldNames(false, true, true);
+        GetAllFieldNames getAllFieldNames = GetAllFieldNames.DEFAULT;
         List<String> fieldNames = getAllFieldNames.apply(_first);
         return fieldNames.stream().map(this::compareFields).collect(Collectors.toList());
     }

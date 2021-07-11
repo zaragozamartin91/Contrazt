@@ -1,6 +1,5 @@
 package io.github.zaragozamartin91.contrazt.main;
 
-import io.github.zaragozamartin91.contrazt.main.GetAllFieldNames;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -11,9 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GetAllFieldNamesTest {
 
+    private final GetAllFieldNames getAllFieldNames = GetAllFieldNames.DEFAULT;
+
     @Test
     void getFieldNames() {
-        GetAllFieldNames getAllFieldNames = new GetAllFieldNames(false, true, true);
         List<String> fieldNames = getAllFieldNames.apply(new Nested1("pepe", 1L, 2));
         HashSet<String> expected = new HashSet<>(Arrays.asList("foo", "bar.baz", "bar.bash.zort"));
         assertTrue(fieldNames.containsAll(expected));
@@ -22,14 +22,39 @@ class GetAllFieldNamesTest {
 
     @Test
     void getFieldNamesFromEmptyClassReturnsEmptyList() {
-        GetAllFieldNames getAllFieldNames = new GetAllFieldNames(false, true, true);
         List<String> fieldNames = getAllFieldNames.apply(new EmptyClass());
         System.out.println(fieldNames);
         assertTrue(fieldNames.isEmpty());
     }
 
+    @Test
+    void getFieldNamesOfObjectTypeReturnsEmptyList() {
+        assertTrue(getAllFieldNames.apply(Object.class).isEmpty());
+    }
+
+    @Test
+    void getFieldNamesFindsNestedFields() {
+        List<String> fieldNames = getAllFieldNames.apply(Child.class);
+        HashSet<String> expected = new HashSet<>(Arrays.asList("childField", "nestedChild.nestedChildField", "parentField"));
+        assertTrue(new HashSet<>(fieldNames).containsAll(expected));
+        assertTrue(expected.containsAll(new HashSet<>(fieldNames)));
+    }
+
     static class EmptyClass {
 
+    }
+
+    static class Parent {
+        private String parentField;
+    }
+
+    static class Child extends Parent {
+        private long childField;
+        private NestedChild nestedChild;
+
+        static class NestedChild {
+            private int nestedChildField;
+        }
     }
 
     static class Nested1 {

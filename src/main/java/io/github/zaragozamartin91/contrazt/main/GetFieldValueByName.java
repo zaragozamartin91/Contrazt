@@ -13,7 +13,7 @@ class GetFieldValueByName {
     private final boolean lenient;
     private final Consumer<String> validateFieldName;
 
-    public GetFieldValueByName(boolean lenient, Consumer<String> validateFieldName) {
+    GetFieldValueByName(boolean lenient, Consumer<String> validateFieldName) {
         this.lenient = lenient;
         this.validateFieldName = validateFieldName;
     }

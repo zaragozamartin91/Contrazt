@@ -13,16 +13,24 @@ class GetAllFieldNames {
     private static final Set<Class<?>> WRAPPER_TYPE_SET =
             Arrays.stream(WRAPPER_TYPES).collect(Collectors.toSet());
 
+    static final GetAllFieldNames DEFAULT = new GetAllFieldNames(
+            false,
+            true,
+            true,
+            true);
+
     private final boolean keepStatic;
     private final boolean skipWrapperTypes;
     private final boolean skipCharSequence;
+    private final boolean checkSuperclass;
 
     GetAllFieldNames(boolean keepStatic,
-                            boolean skipWrapperTypes,
-                            boolean skipCharSequence) {
+                     boolean skipWrapperTypes,
+                     boolean skipCharSequence, boolean checkSuperclass) {
         this.keepStatic = keepStatic;
         this.skipWrapperTypes = skipWrapperTypes;
         this.skipCharSequence = skipCharSequence;
+        this.checkSuperclass = checkSuperclass;
     }
 
     List<String> apply(Object object) {
@@ -31,8 +39,19 @@ class GetAllFieldNames {
     }
 
     List<String> apply(Class<?> type) {
-        List<String> fieldNames = getFieldNames(type, new ArrayList<>());
-        return fieldNames.stream().map(String::trim).filter(s -> !s.isEmpty()).collect(Collectors.toList());
+        if (skipType(type)) {
+            return Collections.emptyList();
+        }
+
+        List<String> currTypeFieldNames = getFieldNames(type, new ArrayList<>());
+        if (checkSuperclass) {
+            List<String> superFieldNames = apply(type.getSuperclass());
+            return Stream.concat(currTypeFieldNames.stream(), superFieldNames.stream())
+                    .map(String::trim).filter(s -> !s.isEmpty()).collect(Collectors.toList());
+        } else {
+            return currTypeFieldNames.stream()
+                    .map(String::trim).filter(s -> !s.isEmpty()).collect(Collectors.toList());
+        }
     }
 
     private List<String> getFieldNames(Class<?> currType, List<String> fieldPath) {
@@ -84,13 +103,4 @@ class GetAllFieldNames {
     private boolean isStatic(Field df) {
         return Modifier.isStatic(df.getModifiers());
     }
-
-    /*byte	java.lang.Byte
-short	java.lang.Short
-int	java.lang.Integer
-long	java.lang.Long
-float	java.lang.Float
-double	java.lang.Double
-char	java.lang.Character
-boolean	java.lang.Boolean */
 }

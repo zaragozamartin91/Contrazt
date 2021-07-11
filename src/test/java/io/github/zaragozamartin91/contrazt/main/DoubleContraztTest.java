@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -12,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DoubleContraztTest {
 
+    // TODO : add more tests
 
     @ParameterizedTest
     @CsvSource(
@@ -41,7 +44,13 @@ class DoubleContraztTest {
     }
 
     @Test
-    void compareAllFields() {
+    void footest() throws NoSuchFieldException {
+        Field df = Foobar.class.getDeclaredField("STATIC_FIELD");
+        assertTrue(Modifier.isStatic(df.getModifiers()));
+    }
+
+    static class Foobar {
+        private static int STATIC_FIELD;
     }
 
     static class Nested1 {
