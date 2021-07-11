@@ -1,4 +1,4 @@
-package io.github.zaragozamartin91.contrazt.usecase;
+package io.github.zaragozamartin91.contrazt.main;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class GetAllFieldNames {
+class GetAllFieldNames {
     private static final Class<?>[] WRAPPER_TYPES = {
             Byte.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE, Character.TYPE, Boolean.TYPE
     };
@@ -17,7 +17,7 @@ public class GetAllFieldNames {
     private final boolean skipWrapperTypes;
     private final boolean skipCharSequence;
 
-    public GetAllFieldNames(boolean keepStatic,
+    GetAllFieldNames(boolean keepStatic,
                             boolean skipWrapperTypes,
                             boolean skipCharSequence) {
         this.keepStatic = keepStatic;
@@ -25,12 +25,12 @@ public class GetAllFieldNames {
         this.skipCharSequence = skipCharSequence;
     }
 
-    public List<String> apply(Object object) {
+    List<String> apply(Object object) {
         Class<?> mainType = object.getClass();
         return apply(mainType);
     }
 
-    public List<String> apply(Class<?> type) {
+    List<String> apply(Class<?> type) {
         List<String> fieldNames = getFieldNames(type, new ArrayList<>());
         return fieldNames.stream().map(String::trim).filter(s -> !s.isEmpty()).collect(Collectors.toList());
     }

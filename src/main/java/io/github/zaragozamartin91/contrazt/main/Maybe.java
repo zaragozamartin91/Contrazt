@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class Maybe<T> {
+class Maybe<T> {
     private final T value;
     private final boolean exists;
 
@@ -14,15 +14,15 @@ public class Maybe<T> {
         this.exists = exists;
     }
 
-    public static <T> Maybe<T> empty() {
+    static <T> Maybe<T> empty() {
         return new Maybe<>(null, false);
     }
 
-    public static <T> Maybe<T> of(T value) {
+    static <T> Maybe<T> of(T value) {
         return new Maybe<>(value, true);
     }
 
-    public Optional<T> toOptional() {
+    Optional<T> toOptional() {
         return isPresent() ? Optional.ofNullable(value) : Optional.empty();
     }
 
@@ -31,36 +31,36 @@ public class Maybe<T> {
      *
      * @return true if a value is set (even null)
      */
-    public boolean exists() {
+    boolean exists() {
         return exists;
     }
 
-    public boolean missing() { return !exists(); }
+    boolean missing() { return !exists(); }
 
     /**
      * Returns true if a value EXISTS and is different from null.
      *
      * @return true if a value EXISTS and is different from null
      */
-    public boolean isPresent() {
+    boolean isPresent() {
         return exists() && Optional.ofNullable(value).isPresent();
     }
 
-    public <R> Maybe<R> flatMap(Function<T, Maybe<R>> fn) {
+    <R> Maybe<R> flatMap(Function<T, Maybe<R>> fn) {
         return exists() ?
                 fn.andThen(m -> new Maybe<>(m.value, m.exists)).apply(this.value) :
                 Maybe.empty();
     }
 
-    public <R> Maybe<R> map(Function<T, R> fn) {
+    <R> Maybe<R> map(Function<T, R> fn) {
         return this.flatMap(t -> Maybe.of(fn.apply(value)));
     }
 
-    public T get() {
+    T get() {
         return this.toOptional().orElseThrow(NoSuchElementException::new);
     }
 
-    public T orNull() {
+    T orNull() {
         return this.toOptional().orElse(null);
     }
 

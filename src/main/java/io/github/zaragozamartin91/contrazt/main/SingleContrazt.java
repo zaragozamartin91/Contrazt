@@ -1,8 +1,5 @@
 package io.github.zaragozamartin91.contrazt.main;
 
-import io.github.zaragozamartin91.contrazt.usecase.GetNestedFieldValueByName;
-import io.github.zaragozamartin91.contrazt.usecase.ValidateFieldName;
-
 public class SingleContrazt {
     private final Object obj;
 

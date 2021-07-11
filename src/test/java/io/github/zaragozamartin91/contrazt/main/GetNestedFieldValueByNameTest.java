@@ -1,7 +1,9 @@
-package io.github.zaragozamartin91.contrazt.usecase;
+package io.github.zaragozamartin91.contrazt.main;
 
 import io.github.zaragozamartin91.contrazt.main.FieldTuple;
+import io.github.zaragozamartin91.contrazt.main.GetNestedFieldValueByName;
 import io.github.zaragozamartin91.contrazt.main.Maybe;
+import io.github.zaragozamartin91.contrazt.main.ValidateFieldName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

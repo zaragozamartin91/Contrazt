@@ -1,6 +1,7 @@
-package io.github.zaragozamartin91.contrazt.usecase;
+package io.github.zaragozamartin91.contrazt.main;
 
 
+import io.github.zaragozamartin91.contrazt.main.ValidateFieldName;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;

@@ -1,10 +1,12 @@
-package io.github.zaragozamartin91.contrazt.usecase;
+package io.github.zaragozamartin91.contrazt.main;
 
 
 import io.github.zaragozamartin91.contrazt.error.AmbiguousFieldException;
 import io.github.zaragozamartin91.contrazt.main.FieldTuple;
+import io.github.zaragozamartin91.contrazt.main.GetFieldValueByName;
 import io.github.zaragozamartin91.contrazt.main.Maybe;
-import io.github.zaragozamartin91.contrazt.util.Try;
+import io.github.zaragozamartin91.contrazt.main.ValidateFieldName;
+import io.github.zaragozamartin91.contrazt.main.Try;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;

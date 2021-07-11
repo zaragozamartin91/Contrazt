@@ -1,9 +1,9 @@
-package io.github.zaragozamartin91.contrazt.usecase;
+package io.github.zaragozamartin91.contrazt.main;
 
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class ValidateFieldName implements Consumer<String> {
+class ValidateFieldName implements Consumer<String> {
     @Override
     public void accept(String s) {
         Optional.ofNullable(s)

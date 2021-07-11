@@ -1,7 +1,5 @@
 package io.github.zaragozamartin91.contrazt.main;
 
-import io.github.zaragozamartin91.contrazt.usecase.GetAllFieldNames;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

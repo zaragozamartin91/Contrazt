@@ -1,7 +1,4 @@
-package io.github.zaragozamartin91.contrazt.usecase;
-
-import io.github.zaragozamartin91.contrazt.main.FieldTuple;
-import io.github.zaragozamartin91.contrazt.main.Maybe;
+package io.github.zaragozamartin91.contrazt.main;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -14,7 +11,7 @@ public class GetNestedFieldValueByName {
     private final Consumer<String> validateFieldName;
     private final GetFieldValueByName getFieldByName;
 
-    public GetNestedFieldValueByName(
+    GetNestedFieldValueByName(
             boolean lenient,
             Consumer<String> validateFieldName) {
         this.lenient = lenient;
@@ -23,7 +20,7 @@ public class GetNestedFieldValueByName {
     }
 
     // search for
-    public Maybe<FieldTuple> apply(Object obj, String fieldName) {
+    Maybe<FieldTuple> apply(Object obj, String fieldName) {
         validateFieldName.accept(fieldName);
         String[] fieldNameSegments = fieldName.split(Pattern.quote("."));
         ArrayDeque<String> fieldNames = new ArrayDeque<>(Arrays.asList(fieldNameSegments));

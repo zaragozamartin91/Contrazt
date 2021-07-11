@@ -1,9 +1,6 @@
-package io.github.zaragozamartin91.contrazt.usecase;
+package io.github.zaragozamartin91.contrazt.main;
 
 import io.github.zaragozamartin91.contrazt.error.AmbiguousFieldException;
-import io.github.zaragozamartin91.contrazt.main.FieldTuple;
-import io.github.zaragozamartin91.contrazt.main.Maybe;
-import io.github.zaragozamartin91.contrazt.util.Try;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -12,7 +9,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 
-public class GetFieldValueByName {
+class GetFieldValueByName {
     private final boolean lenient;
     private final Consumer<String> validateFieldName;
 
@@ -21,7 +18,7 @@ public class GetFieldValueByName {
         this.validateFieldName = validateFieldName;
     }
 
-    public Maybe<FieldTuple> apply(Object obj, String fieldName) {
+    Maybe<FieldTuple> apply(Object obj, String fieldName) {
         validateFieldName.accept(fieldName);
         Class<?> clazz = obj.getClass();
 

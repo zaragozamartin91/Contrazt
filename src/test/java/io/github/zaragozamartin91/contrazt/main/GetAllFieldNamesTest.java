@@ -1,5 +1,6 @@
-package io.github.zaragozamartin91.contrazt.usecase;
+package io.github.zaragozamartin91.contrazt.main;
 
+import io.github.zaragozamartin91.contrazt.main.GetAllFieldNames;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
