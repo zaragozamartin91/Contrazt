@@ -5,16 +5,18 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class GetAllFieldNamesTest {
+class GetAllFieldsTest {
 
-    private final GetAllFieldNames getAllFieldNames = GetAllFieldNames.DEFAULT;
+    private final GetAllFields getAllFields = GetAllFields.DEFAULT;
 
     @Test
     void getFieldNames() {
-        List<String> fieldNames = getAllFieldNames.apply(new Nested1("pepe", 1L, 2));
+        List<String> fieldNames =
+                getAllFields.apply(new Nested1("pepe", 1L, 2)).stream().map(FieldPath::getPath).collect(Collectors.toList());
         HashSet<String> expected = new HashSet<>(Arrays.asList("foo", "bar.baz", "bar.bash.zort"));
         assertTrue(fieldNames.containsAll(expected));
         assertTrue(expected.containsAll(fieldNames));
@@ -22,19 +24,19 @@ class GetAllFieldNamesTest {
 
     @Test
     void getFieldNamesFromEmptyClassReturnsEmptyList() {
-        List<String> fieldNames = getAllFieldNames.apply(new EmptyClass());
+        List<String> fieldNames = getAllFields.apply(new EmptyClass()).stream().map(FieldPath::getPath).collect(Collectors.toList());
         System.out.println(fieldNames);
         assertTrue(fieldNames.isEmpty());
     }
 
     @Test
     void getFieldNamesOfObjectTypeReturnsEmptyList() {
-        assertTrue(getAllFieldNames.apply(Object.class).isEmpty());
+        assertTrue(getAllFields.apply(Object.class).isEmpty());
     }
 
     @Test
     void getFieldNamesFindsNestedFields() {
-        List<String> fieldNames = getAllFieldNames.apply(Child.class);
+        List<String> fieldNames = getAllFields.apply(Child.class).stream().map(FieldPath::getPath).collect(Collectors.toList());
         HashSet<String> expected = new HashSet<>(Arrays.asList("childField", "nestedChild.nestedChildField", "parentField"));
         assertTrue(new HashSet<>(fieldNames).containsAll(expected));
         assertTrue(expected.containsAll(new HashSet<>(fieldNames)));

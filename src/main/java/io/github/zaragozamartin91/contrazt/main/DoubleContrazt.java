@@ -1,9 +1,9 @@
 package io.github.zaragozamartin91.contrazt.main;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static io.github.zaragozamartin91.contrazt.main.FieldDiffStatus.*;
+import static java.util.stream.Collectors.toList;
 
 public class DoubleContrazt {
     private final Object _first;
@@ -44,8 +44,8 @@ public class DoubleContrazt {
     }
 
     public List<FieldDiff> compareAllFields() {
-        GetAllFieldNames getAllFieldNames = GetAllFieldNames.DEFAULT;
-        List<String> fieldNames = getAllFieldNames.apply(_first);
-        return fieldNames.stream().map(this::compareFields).collect(Collectors.toList());
+        GetAllFields getAllFields = GetAllFields.DEFAULT;
+        List<String> fieldNames = getAllFields.apply(_first).stream().map(FieldPath::getPath).collect(toList());
+        return fieldNames.stream().map(this::compareFields).collect(toList());
     }
 }
