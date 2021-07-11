@@ -1,5 +1,10 @@
 package io.github.zaragozamartin91.contrazt.main;
 
+import io.github.zaragozamartin91.contrazt.usecase.GetAllFieldNames;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static io.github.zaragozamartin91.contrazt.main.FieldDiffStatus.*;
 
 public class DoubleContrazt {
@@ -38,5 +43,11 @@ public class DoubleContrazt {
                 : first.get().differentTypeAs(second.get()) ? new FieldDiff(stdFieldName, fv, sv, TYPE_MISMATCH)
                 : first.get().sameValueAs(second.get()) ? new FieldDiff(stdFieldName, fv, sv, EQUAL)
                 : new FieldDiff(stdFieldName, fv, sv, VALUE_MISMATCH);
+    }
+
+    public List<FieldDiff> compareAllFields() {
+        GetAllFieldNames getAllFieldNames = new GetAllFieldNames(false, true, true);
+        List<String> fieldNames = getAllFieldNames.apply(_first);
+        return fieldNames.stream().map(this::compareFields).collect(Collectors.toList());
     }
 }

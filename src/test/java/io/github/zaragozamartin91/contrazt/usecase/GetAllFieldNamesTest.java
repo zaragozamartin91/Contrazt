@@ -2,7 +2,11 @@ package io.github.zaragozamartin91.contrazt.usecase;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GetAllFieldNamesTest {
 
@@ -10,8 +14,21 @@ class GetAllFieldNamesTest {
     void getFieldNames() {
         GetAllFieldNames getAllFieldNames = new GetAllFieldNames(false, true, true);
         List<String> fieldNames = getAllFieldNames.apply(new Nested1("pepe", 1L, 2));
+        HashSet<String> expected = new HashSet<>(Arrays.asList("foo", "bar.baz", "bar.bash.zort"));
+        assertTrue(fieldNames.containsAll(expected));
+        assertTrue(expected.containsAll(fieldNames));
+    }
 
+    @Test
+    void getFieldNamesFromEmptyClassReturnsEmptyList() {
+        GetAllFieldNames getAllFieldNames = new GetAllFieldNames(false, true, true);
+        List<String> fieldNames = getAllFieldNames.apply(new EmptyClass());
         System.out.println(fieldNames);
+        assertTrue(fieldNames.isEmpty());
+    }
+
+    static class EmptyClass {
+
     }
 
     static class Nested1 {

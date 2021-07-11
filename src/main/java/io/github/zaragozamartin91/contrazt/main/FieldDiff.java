@@ -12,4 +12,20 @@ public class FieldDiff {
         this.second = second;
         this.result = result;
     }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public FieldTuple getFirst() {
+        return first;
+    }
+
+    public FieldTuple getSecond() {
+        return second;
+    }
+
+    public FieldDiffStatus getResult() {
+        return result;
+    }
 }

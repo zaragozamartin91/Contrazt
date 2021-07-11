@@ -31,7 +31,8 @@ public class GetAllFieldNames {
     }
 
     public List<String> apply(Class<?> type) {
-        return getFieldNames(type, new ArrayList<>());
+        List<String> fieldNames = getFieldNames(type, new ArrayList<>());
+        return fieldNames.stream().map(String::trim).filter(s -> !s.isEmpty()).collect(Collectors.toList());
     }
 
     private List<String> getFieldNames(Class<?> currType, List<String> fieldPath) {
@@ -69,7 +70,7 @@ public class GetAllFieldNames {
     }
 
     private boolean isWrapperType(Class<?> type) {
-        return WRAPPER_TYPE_SET.contains(type);
+        return WRAPPER_TYPE_SET.stream().anyMatch(s -> s.isAssignableFrom(type));
     }
 
     private boolean acceptField(Field field) {
