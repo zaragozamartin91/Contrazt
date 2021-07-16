@@ -6,13 +6,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-class GetAllNestedFields {
-    static final GetAllNestedFields DEFAULT = new GetAllNestedFields(GetClassFields.DEFAULT, false);
+class GetClassNestedFields {
+    static final GetClassNestedFields DEFAULT = new GetClassNestedFields(GetClassFields.DEFAULT, false);
 
     private final GetClassFields getClassFields;
     private final boolean keepStatic;
 
-    GetAllNestedFields(GetClassFields getClassFields, boolean keepStatic) {
+    GetClassNestedFields(GetClassFields getClassFields, boolean keepStatic) {
         this.getClassFields = getClassFields;
         this.keepStatic = keepStatic;
     }

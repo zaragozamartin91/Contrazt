@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GetNestedFieldValueByNameTest {
-    private GetNestedFieldValueByName usecase;
+class GetFieldValueByPathTest {
+    private GetFieldValueByPath usecase;
 
     @Test
     void applyReturnsMatchingNestedFieldValue() {
-        usecase = GetNestedFieldValueByName.DEFAULT;
+        usecase = GetFieldValueByPath.DEFAULT;
 
         Nested1 nested1 = new Nested1("one", 2L, 3);
 
@@ -20,7 +20,7 @@ class GetNestedFieldValueByNameTest {
 
     @Test
     void applyReturnsEmptyOnMissingField() {
-        usecase = GetNestedFieldValueByName.DEFAULT;
+        usecase = GetFieldValueByPath.DEFAULT;
 
         Nested1 nested1 = new Nested1("one", 2L, 3);
 

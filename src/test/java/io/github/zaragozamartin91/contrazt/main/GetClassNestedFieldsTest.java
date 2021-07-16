@@ -9,14 +9,14 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class GetAllNestedFieldsTest {
+class GetClassNestedFieldsTest {
 
-    private final GetAllNestedFields getAllNestedFields = GetAllNestedFields.DEFAULT;
+    private final GetClassNestedFields getClassNestedFields = GetClassNestedFields.DEFAULT;
 
     @Test
     void getFieldNames() {
         List<String> fieldNames =
-                getAllNestedFields.apply(new Nested1("pepe", 1L, 2)).stream().map(FieldPath::getPath).collect(Collectors.toList());
+                getClassNestedFields.apply(new Nested1("pepe", 1L, 2)).stream().map(FieldPath::getPath).collect(Collectors.toList());
         HashSet<String> expected = new HashSet<>(Arrays.asList("foo", "bar.baz", "bar.bash.zort"));
         assertTrue(fieldNames.containsAll(expected));
         assertTrue(expected.containsAll(fieldNames));
@@ -24,19 +24,19 @@ class GetAllNestedFieldsTest {
 
     @Test
     void getFieldNamesFromEmptyClassReturnsEmptyList() {
-        List<String> fieldNames = getAllNestedFields.apply(new EmptyClass()).stream().map(FieldPath::getPath).collect(Collectors.toList());
+        List<String> fieldNames = getClassNestedFields.apply(new EmptyClass()).stream().map(FieldPath::getPath).collect(Collectors.toList());
         System.out.println(fieldNames);
         assertTrue(fieldNames.isEmpty());
     }
 
     @Test
     void getFieldNamesOfObjectTypeReturnsEmptyList() {
-        assertTrue(getAllNestedFields.apply(Object.class).isEmpty());
+        assertTrue(getClassNestedFields.apply(Object.class).isEmpty());
     }
 
     @Test
     void getFieldNamesFindsNestedFields() {
-        List<String> fieldNames = getAllNestedFields.apply(Child.class).stream().map(FieldPath::getPath).collect(Collectors.toList());
+        List<String> fieldNames = getClassNestedFields.apply(Child.class).stream().map(FieldPath::getPath).collect(Collectors.toList());
         HashSet<String> expected = new HashSet<>(Arrays.asList("childField", "nestedChild.nestedChildField", "parentField"));
         assertTrue(new HashSet<>(fieldNames).containsAll(expected));
         assertTrue(expected.containsAll(new HashSet<>(fieldNames)));

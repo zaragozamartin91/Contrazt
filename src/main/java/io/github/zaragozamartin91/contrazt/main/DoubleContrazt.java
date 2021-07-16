@@ -6,6 +6,8 @@ import static io.github.zaragozamartin91.contrazt.main.FieldDiffStatus.*;
 import static java.util.stream.Collectors.toList;
 
 public class DoubleContrazt {
+    private final GetClassNestedFields getClassNestedFields = GetClassNestedFields.DEFAULT;
+
     private final Object _first;
     private final Object _second;
 
@@ -44,8 +46,7 @@ public class DoubleContrazt {
     }
 
     public List<FieldDiff> compareAllFields() {
-        GetAllNestedFields getAllNestedFields = GetAllNestedFields.DEFAULT;
-        List<String> fieldNames = getAllNestedFields.apply(_first).stream().map(FieldPath::getPath).collect(toList());
+        List<String> fieldNames = getClassNestedFields.apply(_first).stream().map(FieldPath::getPath).collect(toList());
         return fieldNames.stream().map(this::compareFields).collect(toList());
     }
 }
