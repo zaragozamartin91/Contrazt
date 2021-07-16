@@ -12,7 +12,7 @@ public class SingleContrazt {
      */
     public Maybe<FieldTuple> getValue(String... fieldNames) {
         String fieldName = String.join(".", fieldNames);
-        GetNestedFieldValueByName usecase = new GetNestedFieldValueByName(false, new ValidateFieldName());
+        GetNestedFieldValueByName usecase = GetNestedFieldValueByName.DEFAULT;
         return usecase.apply(obj, fieldName);
     }
 

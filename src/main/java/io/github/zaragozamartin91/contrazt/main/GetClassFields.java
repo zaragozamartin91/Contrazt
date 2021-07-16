@@ -15,6 +15,10 @@ class GetClassFields {
     private static final Set<Class<?>> WRAPPER_TYPE_SET =
             Arrays.stream(WRAPPER_TYPES).collect(Collectors.toSet());
 
+    static final GetClassFields DEFAULT = new GetClassFields(true, true, true);
+    static final GetClassFields NO_SUPER_FIELDS =
+            new GetClassFields(true, true, true);
+
     private final boolean checkSuperclass;
     private final boolean skipWrapperTypes;
     private final boolean skipCharSequence;

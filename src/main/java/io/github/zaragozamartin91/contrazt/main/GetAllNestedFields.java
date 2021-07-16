@@ -7,8 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class GetAllNestedFields {
-    static final GetAllNestedFields DEFAULT = new GetAllNestedFields(
-            new GetClassFields(true, true, true), false);
+    static final GetAllNestedFields DEFAULT = new GetAllNestedFields(GetClassFields.DEFAULT, false);
 
     private final GetClassFields getClassFields;
     private final boolean keepStatic;

@@ -1,20 +1,15 @@
 package io.github.zaragozamartin91.contrazt.main;
 
-import io.github.zaragozamartin91.contrazt.main.FieldTuple;
-import io.github.zaragozamartin91.contrazt.main.GetNestedFieldValueByName;
-import io.github.zaragozamartin91.contrazt.main.Maybe;
-import io.github.zaragozamartin91.contrazt.main.ValidateFieldName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
 class GetNestedFieldValueByNameTest {
     private GetNestedFieldValueByName usecase;
 
     @Test
     void applyReturnsMatchingNestedFieldValue() {
-        usecase = new GetNestedFieldValueByName(false, mock(ValidateFieldName.class));
+        usecase = GetNestedFieldValueByName.DEFAULT;
 
         Nested1 nested1 = new Nested1("one", 2L, 3);
 
@@ -25,7 +20,7 @@ class GetNestedFieldValueByNameTest {
 
     @Test
     void applyReturnsEmptyOnMissingField() {
-        usecase = new GetNestedFieldValueByName(false, mock(ValidateFieldName.class));
+        usecase = GetNestedFieldValueByName.DEFAULT;
 
         Nested1 nested1 = new Nested1("one", 2L, 3);
 

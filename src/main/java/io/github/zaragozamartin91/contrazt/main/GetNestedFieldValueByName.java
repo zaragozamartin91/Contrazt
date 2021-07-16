@@ -3,25 +3,17 @@ package io.github.zaragozamartin91.contrazt.main;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
-import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 public class GetNestedFieldValueByName {
-    private final boolean lenient;
-    private final Consumer<String> validateFieldName;
+    static GetNestedFieldValueByName DEFAULT = new GetNestedFieldValueByName(GetFieldValueByName.DEFAULT);
+
     private final GetFieldValueByName getFieldByName;
 
-    GetNestedFieldValueByName(
-            boolean lenient,
-            Consumer<String> validateFieldName) {
-        this.lenient = lenient;
-        this.validateFieldName = validateFieldName;
-        this.getFieldByName = new GetFieldValueByName(lenient, validateFieldName);
-    }
+    public GetNestedFieldValueByName(GetFieldValueByName getFieldByName) {this.getFieldByName = getFieldByName;}
 
     // search for
     Maybe<FieldTuple> apply(Object obj, String fieldName) {
-        validateFieldName.accept(fieldName);
         String[] fieldNameSegments = fieldName.split(Pattern.quote("."));
         ArrayDeque<String> fieldNames = new ArrayDeque<>(Arrays.asList(fieldNameSegments));
         return doApply(obj, fieldNames, null);

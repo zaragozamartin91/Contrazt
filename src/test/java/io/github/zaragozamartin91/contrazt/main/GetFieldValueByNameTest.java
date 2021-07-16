@@ -1,12 +1,6 @@
 package io.github.zaragozamartin91.contrazt.main;
 
 
-import io.github.zaragozamartin91.contrazt.error.AmbiguousFieldException;
-import io.github.zaragozamartin91.contrazt.main.FieldTuple;
-import io.github.zaragozamartin91.contrazt.main.GetFieldValueByName;
-import io.github.zaragozamartin91.contrazt.main.Maybe;
-import io.github.zaragozamartin91.contrazt.main.ValidateFieldName;
-import io.github.zaragozamartin91.contrazt.main.Try;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -14,7 +8,6 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 
 public class GetFieldValueByNameTest {
@@ -22,8 +15,7 @@ public class GetFieldValueByNameTest {
 
     @Test
     public void applyFindsFieldByStrictMatchingName() {
-        ValidateFieldName validateFieldName = mock(ValidateFieldName.class);
-        usecase = new GetFieldValueByName(false, validateFieldName);
+        usecase = GetFieldValueByName.DEFAULT;
 
         Foo foo = new Foo("foo", 123L);
 
@@ -36,44 +28,12 @@ public class GetFieldValueByNameTest {
                     assertTrue(result.isPresent());
                     assertEquals(fieldValue, result.get().getValue());
                 });
-
-        verify(validateFieldName, times(declaredFields.length)).accept(anyString());
     }
 
-    @Test
-    public void applyFindsFieldByLenientMatchingName() {
-        ValidateFieldName validateFieldName = mock(ValidateFieldName.class);
-        usecase = new GetFieldValueByName(true, validateFieldName);
-
-        Foo foo = new Foo("foo", 123L);
-
-        Field[] declaredFields = foo.getClass().getDeclaredFields();
-        Arrays.stream(declaredFields)
-                .forEach(field -> {
-                    field.setAccessible(true);
-                    Optional<FieldTuple> result =
-                            usecase.apply(foo, field.getName().toUpperCase()).toOptional();
-                    Object fieldValue = Try.<Field, Object>unchecked(f -> f.get(foo)).apply(field);
-                    assertTrue(result.isPresent());
-                    assertEquals(fieldValue, result.get().getValue());
-                });
-
-        verify(validateFieldName, times(declaredFields.length)).accept(anyString());
-    }
-
-    @Test
-    public void applyThrowsAmbiguousFieldExceptionOnFieldsWithSameLowercaseNames() {
-        ValidateFieldName validateFieldName = mock(ValidateFieldName.class);
-        usecase = new GetFieldValueByName(true, validateFieldName);
-
-        Lorem lorem = new Lorem("foo", 2L, 3);
-
-        assertThrows(AmbiguousFieldException.class, () -> usecase.apply(lorem, "id"));
-    }
 
     @Test
     public void applyReturnsEmptyOnMissingFields() {
-        usecase = new GetFieldValueByName(false, mock(ValidateFieldName.class));
+        usecase = GetFieldValueByName.DEFAULT;
 
         Foo foo = new Foo("foo", 123L);
 
