@@ -2,6 +2,9 @@ package io.github.zaragozamartin91.contrazt.main;
 
 import java.lang.reflect.Field;
 
+/**
+ * Holds the field and it's path within a class
+ */
 public class FieldPath {
     private final Field field;
     private final String path;
