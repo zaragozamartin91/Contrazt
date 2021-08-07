@@ -16,6 +16,11 @@ public class CollectionProperty implements ContainerProperty {
     }
 
     @Override
+    public Collection<?> getContainer() {
+        return container;
+    }
+
+    @Override
     public Optional<?> getValue() {
         return Optional.ofNullable(container).map(c -> {
             Object[] indexedContainer = c.toArray();

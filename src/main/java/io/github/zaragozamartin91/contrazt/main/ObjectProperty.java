@@ -12,13 +12,18 @@ public class ObjectProperty implements ContainerProperty {
         this.container = container;
         this.field = field;
         this.containerName = containerName;
-        field.setAccessible(true);
+    }
+
+    @Override
+    public Object getContainer() {
+        return container;
     }
 
     @Override
     public Optional<?> getValue() {
         return Optional.ofNullable(container).map(c -> {
             try {
+                field.setAccessible(true);
                 return field.get(c);
             } catch (IllegalAccessException e) {
                 throw new IllegalStateException("Error while getting field value " + field.getName() + " of container " + container, e);

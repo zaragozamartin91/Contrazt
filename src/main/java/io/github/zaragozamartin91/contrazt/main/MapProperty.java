@@ -15,6 +15,11 @@ public class MapProperty implements ContainerProperty {
     }
 
     @Override
+    public Map<?, Object> getContainer() {
+        return container;
+    }
+
+    @Override
     public Optional<?> getValue() {
         return Optional.ofNullable(container).map(c -> c.get(key));
     }
