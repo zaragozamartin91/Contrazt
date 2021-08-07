@@ -18,7 +18,7 @@ class CollectionInspectorTest {
         assertEquals(container.size(), properties.size());
 
         List<String> values = Arrays.asList("one", "two", "three");
-        List<String> propertyNames = Arrays.asList("[0]container_name", "[1]container_name", "[2]container_name");
+        List<String> propertyNames = Arrays.asList("container_name[0]", "container_name[1]", "container_name[2]");
         for (int i = 0; i < properties.size(); i++) {
             ContainerProperty containerProperty = properties.get(i);
             Object value = containerProperty.getValue().orElse(null);

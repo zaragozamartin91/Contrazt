@@ -26,9 +26,9 @@ class MapInspectorTest {
 
         Map<String, ? extends Optional<?>> propertiesByName =
                 properties.stream().collect(Collectors.toMap(ContainerProperty::getName, ContainerProperty::getValue));
-        Object one = propertiesByName.get("{one}container_name").orElse(null);
-        Object two = propertiesByName.get("{two}container_name").orElse(null);
-        Object three = propertiesByName.get("{three}container_name").orElse(null);
+        Object one = propertiesByName.get("container_name{one}").orElse(null);
+        Object two = propertiesByName.get("container_name{two}").orElse(null);
+        Object three = propertiesByName.get("container_name{three}").orElse(null);
         assertEquals("value_1", one);
         assertEquals("value_2", two);
         assertEquals("value_3", three);

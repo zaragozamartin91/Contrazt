@@ -6,13 +6,13 @@ import java.util.Optional;
 public class CollectionProperty implements ContainerProperty {
     private final int index;
     private final Collection<?> container;
-    private final String nameSuffix;
+    private final String containerName;
 
-    public CollectionProperty(Collection<?> container, Integer index, String nameSuffix) {
+    public CollectionProperty(Collection<?> container, Integer index, String containerName) {
         this.index = Optional.of(index).filter(i -> i >= 0)
                 .orElseThrow(() -> new IllegalArgumentException("Index has to be equal or higher than 0"));
         this.container = container;
-        this.nameSuffix = nameSuffix;
+        this.containerName = containerName;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class CollectionProperty implements ContainerProperty {
 
     @Override
     public String getName() {
-        return String.format("[%d]%s", index, nameSuffix);
+        return String.format("%s[%d]", containerName, index);
     }
 
     @Override

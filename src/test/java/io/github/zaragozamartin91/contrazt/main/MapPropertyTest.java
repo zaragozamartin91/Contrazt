@@ -35,7 +35,7 @@ class MapPropertyTest {
 
     @Test
     void getName() {
-        assertEquals(String.format("{%s}%s", key, nameSuffix), mapProperty.getName());
+        assertEquals(String.format("%s{%s}", nameSuffix, key), mapProperty.getName());
     }
 
     @Test

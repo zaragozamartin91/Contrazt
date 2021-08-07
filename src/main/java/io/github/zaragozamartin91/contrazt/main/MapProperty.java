@@ -6,12 +6,12 @@ import java.util.Optional;
 public class MapProperty implements ContainerProperty {
     private final Map<?, Object> container;
     private final Object key;
-    private final String nameSuffix;
+    private final String containerName;
 
-    public MapProperty(Map<?, Object> container, Object key, String nameSuffix) {
+    public MapProperty(Map<?, Object> container, Object key, String containerName) {
         this.container = container;
         this.key = key;
-        this.nameSuffix = nameSuffix;
+        this.containerName = containerName;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class MapProperty implements ContainerProperty {
 
     @Override
     public String getName() {
-        return String.format("{%s}%s", key, nameSuffix);
+        return String.format("%s{%s}", containerName, key);
     }
 
     @Override

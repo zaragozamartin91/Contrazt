@@ -39,7 +39,7 @@ class CollectionPropertyTest {
 
     @Test
     void getName() {
-        String expectedName = String.format("[%d]%s", index, nameSuffix);
+        String expectedName = String.format("%s[%d]", nameSuffix, index);
         assertEquals(expectedName, collectionProperty.getName());
     }
 

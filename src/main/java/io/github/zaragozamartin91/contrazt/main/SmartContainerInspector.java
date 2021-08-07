@@ -26,11 +26,11 @@ public class SmartContainerInspector {
 
         Class<?> containerType = container.getClass();
 
-        if(containerType.isAssignableFrom(Collection.class)) {
+        if(Collection.class.isAssignableFrom(containerType)) {
             return new CollectionInspector((Collection<?>) container, containerName);
         }
 
-        if(containerType.isAssignableFrom(Map.class)) {
+        if(Map.class.isAssignableFrom(containerType)) {
             return new MapInspector((Map<?, Object>) container, containerName);
         }
 
