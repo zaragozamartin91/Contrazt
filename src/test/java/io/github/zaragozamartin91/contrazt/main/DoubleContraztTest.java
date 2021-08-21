@@ -1,8 +1,6 @@
 package io.github.zaragozamartin91.contrazt.main;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -11,49 +9,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static io.github.zaragozamartin91.contrazt.main.FieldDiffStatus.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DoubleContraztTest {
 
     // TODO : add more tests
-
-    @ParameterizedTest
-    @CsvSource(
-            delimiter = ',',
-            value = {
-                    "foo,2,3,bar,4,5,VALUE_MISMATCH,VALUE_MISMATCH,VALUE_MISMATCH",
-                    "foo,2,3,foo,4,5,EQUAL,VALUE_MISMATCH,VALUE_MISMATCH",
-            })
-    void compareAllFieldsOfSameObjectType(
-            String nstr1, long nlong1, int nint1,
-            String nstr2, long nlong2, int nint2,
-            String result1, String result2, String result3
-    ) {
-        // GIVEN
-        Nested1 n1 = new Nested1(nstr1, nlong1, nint1);
-        Nested1 n2 = new Nested1(nstr2, nlong2, nint2);
-
-        // WHEN
-        List<FieldDiff> fieldDiff = Contrazt.of(n1).and(n2).compareAllFields();
-        System.out.println("Field diffs:");
-        System.out.println(fieldDiff);
-
-        // THEN
-        List<FieldDiffStatus> results = Arrays.asList(
-                FieldDiffStatus.valueOf(result1),
-                FieldDiffStatus.valueOf(result2),
-                FieldDiffStatus.valueOf(result3));
-        AtomicInteger idx = new AtomicInteger();
-        assertAll(
-                () -> assertEquals(results.get(idx.get()), fieldDiff.get(idx.getAndIncrement()).getResult()),
-                () -> assertEquals(results.get(idx.get()), fieldDiff.get(idx.getAndIncrement()).getResult()),
-                () -> assertEquals(results.get(idx.get()), fieldDiff.get(idx.getAndIncrement()).getResult())
-        );
-    }
 
     @Test
     void matchProperties() {

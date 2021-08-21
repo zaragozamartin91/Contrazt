@@ -10,20 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SingleContraztTest {
 
-    @Test
-    void getValue() {
-        Nested1 obj = new Nested1("Hello", 9L, 1);
-        SingleContrazt singleContrazt = new SingleContrazt(obj);
-        Maybe<FieldTuple> dotted = singleContrazt.getValue("bar.bash.zort");
-        Maybe<FieldTuple> chained = singleContrazt.getValue("bar", "bash", "zort");
-        Maybe<FieldTuple> mixed = singleContrazt.getValue("bar.bash", "zort");
-
-        assertTrue(dotted.exists());
-        assertTrue(chained.exists());
-        assertTrue(mixed.exists());
-        assertEquals(dotted, chained);
-        assertEquals(dotted, mixed);
-    }
 
     @Test
     void removeRoot() {
