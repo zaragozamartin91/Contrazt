@@ -2,8 +2,11 @@ package io.github.zaragozamartin91.contrazt.main;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static io.github.zaragozamartin91.contrazt.main.SingleContrazt.DEFAULT_ROOT_NAME;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SingleContraztTest {
 
@@ -20,6 +23,21 @@ class SingleContraztTest {
         assertTrue(mixed.exists());
         assertEquals(dotted, chained);
         assertEquals(dotted, mixed);
+    }
+
+    @Test
+    void removeRoot() {
+        // GIVEN
+        List<ContainerProperty> flatten = Contrazt.of(new Nested1("one", 2L, 3)).flatten();
+        String rootPrefix = DEFAULT_ROOT_NAME + ".";
+        flatten.stream().map(ContainerProperty::getName).forEach(n -> assertTrue(n.startsWith(rootPrefix)));
+
+        // WHEN
+        List<String> woRoot =
+                flatten.stream().map(ContainerProperty::getName).map(SingleContrazt::removeRoot).collect(Collectors.toList());
+
+        // THEN
+        woRoot.forEach(s -> assertFalse(s.startsWith(rootPrefix)));
     }
 
     static class Nested1 {

@@ -43,4 +43,12 @@ public class FieldTuple {
     public int hashCode() {
         return Objects.hash(type, value);
     }
+
+    @Override
+    public String toString() {
+        return "FieldTuple{" +
+                "type=" + type +
+                ", value=" + value +
+                '}';
+    }
 }
