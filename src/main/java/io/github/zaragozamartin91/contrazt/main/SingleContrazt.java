@@ -22,9 +22,9 @@ public class SingleContrazt {
     }
 
     /**
-     * Flattens a structure using &ROOT as the top level name
+     * Flattens a structure using {@code &ROOT} as the top level name
      *
-     * @return Flattened structure (Object / Map / List) using &ROOT as the top level name
+     * @return Flattened structure (Object / Map / List) using {@code &ROOT} as the top level name
      */
     public List<ContainerProperty> flatten() {
         return flatten(DEFAULT_ROOT_NAME);
@@ -36,18 +36,6 @@ public class SingleContrazt {
 
     public static String removeRoot(String propertyName) {
         return removeRoot(DEFAULT_ROOT_NAME, propertyName);
-    }
-
-    /**
-     * Gets the value of a field or nested field
-     *
-     * @param fieldNames Field name chain specifying the nested field to which get it's value
-     * @return Field value or {@code Optional.empty()} if field non existent or null.
-     */
-    public Maybe<FieldTuple> getValue(String... fieldNames) {
-        String fieldName = String.join(".", fieldNames);
-        GetFieldValueByPath usecase = GetFieldValueByPath.DEFAULT;
-        return usecase.apply(obj, fieldName);
     }
 
     public DoubleContrazt and(Object right) {

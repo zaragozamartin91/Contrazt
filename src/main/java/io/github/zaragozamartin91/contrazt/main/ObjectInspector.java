@@ -1,6 +1,7 @@
 package io.github.zaragozamartin91.contrazt.main;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

@@ -55,7 +55,7 @@ public interface ContainerProperty {
 
     /**
      * Replaces maps references with dots
-     * E.G.: first.second{third}.fourth[0] => first.second.third.fourth[0]
+     * E.G.: first.second{third}.fourth[0] BECOMES first.second.third.fourth[0]
      *
      * @return Normalized container property name
      */

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,6 +19,7 @@ class ObjectInspectorTest {
     @Test
     void getProperties() {
         List<ContainerProperty> properties = objectInspector.getProperties();
+        System.out.println("Properties found: " + properties.stream().map(ContainerProperty::getName).collect(Collectors.toList()));
         assertEquals(3, properties.size());
         assertTrue(properties.stream().allMatch(ContainerProperty::isAtom));
 
