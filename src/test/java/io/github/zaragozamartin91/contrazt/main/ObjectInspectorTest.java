@@ -18,8 +18,10 @@ class ObjectInspectorTest {
 
     @Test
     void getProperties() {
+        // GIVEN & WHEN
         List<ContainerProperty> properties = objectInspector.getProperties();
-        System.out.println("Properties found: " + properties.stream().map(ContainerProperty::getName).collect(Collectors.toList()));
+
+        // THEN
         assertEquals(3, properties.size());
         assertTrue(properties.stream().allMatch(ContainerProperty::isAtom));
 

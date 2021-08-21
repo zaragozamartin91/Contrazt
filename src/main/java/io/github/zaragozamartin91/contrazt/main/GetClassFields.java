@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+// TODO : add tests!
 class GetClassFields {
     private static final Class<?>[] WRAPPER_TYPES = {
             Byte.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE, Character.TYPE, Boolean.TYPE
@@ -17,20 +18,21 @@ class GetClassFields {
             Arrays.stream(WRAPPER_TYPES).collect(Collectors.toSet());
 
     static final GetClassFields DEFAULT =
-            new GetClassFields(true, true, true);
-    static final GetClassFields NO_SUPER_FIELDS =
-            new GetClassFields(true, true, true);
+            new GetClassFields(true, true, true, true);
 
     private final boolean checkSuperclass;
     private final boolean skipWrapperTypes;
     private final boolean skipCharSequence;
+    private final boolean skipNumbers;
 
     GetClassFields(boolean checkSuperclass,
                    boolean skipWrapperTypes,
-                   boolean skipCharSequence) {
+                   boolean skipCharSequence,
+                   boolean skipNumbers) {
         this.checkSuperclass = checkSuperclass;
         this.skipWrapperTypes = skipWrapperTypes;
         this.skipCharSequence = skipCharSequence;
+        this.skipNumbers = skipNumbers;
     }
 
     List<Field> apply(Class<?> typeClass) {
@@ -55,6 +57,7 @@ class GetClassFields {
                 || currType.isPrimitive()
                 || (skipWrapperTypes && isWrapperType(currType))
                 || (skipCharSequence && CharSequence.class.isAssignableFrom(currType))
+                || (skipNumbers && Number.class.isAssignableFrom(currType))
                 || currType.isSynthetic();
     }
 
