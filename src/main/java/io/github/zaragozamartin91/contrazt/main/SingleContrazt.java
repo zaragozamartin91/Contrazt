@@ -1,9 +1,10 @@
 package io.github.zaragozamartin91.contrazt.main;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class SingleContrazt {
-    private static final String DEFAULT_ROOT_NAME = "&ROOT";
+    public static final String DEFAULT_ROOT_NAME = "&ROOT";
 
     private final Object obj;
 
@@ -27,6 +28,14 @@ public class SingleContrazt {
      */
     public List<ContainerProperty> flatten() {
         return flatten(DEFAULT_ROOT_NAME);
+    }
+
+    public static String removeRoot(String rootName, String propertyName) {
+        return propertyName.replaceAll(Pattern.quote(rootName + "."), "");
+    }
+
+    public static String removeRoot(String propertyName) {
+        return removeRoot(DEFAULT_ROOT_NAME, propertyName);
     }
 
     /**

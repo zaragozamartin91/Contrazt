@@ -43,4 +43,13 @@ public class ContainerPropertyStub implements ContainerProperty {
     public boolean isAtom() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "ContainerPropertyStub{" +
+                "value=" + value +
+                ", name='" + name + '\'' +
+                ", key='" + key + '\'' +
+                '}';
+    }
 }
