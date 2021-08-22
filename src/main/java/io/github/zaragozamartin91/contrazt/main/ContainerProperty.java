@@ -1,24 +1,15 @@
 package io.github.zaragozamartin91.contrazt.main;
 
-import java.util.Arrays;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 public interface ContainerProperty {
-    Class<?>[] WRAPPER_TYPES = {
-            Byte.class, Short.class, Integer.class, Long.class, Float.class, Double.class, Character.class, Boolean.class
-    };
-    Set<Class<?>> WRAPPER_TYPE_SET =
-            Arrays.stream(WRAPPER_TYPES).collect(Collectors.toSet());
+    Predicate<Class<?>> isAtom = new IsAtom();
 
+    // TODO : add Date and LocalDate
     default boolean isAtom() {
         Class<?> valueType = getValue().map(Object::getClass).orElse(null);
-        return valueType == null
-                || valueType.isPrimitive()
-                || WRAPPER_TYPE_SET.stream().anyMatch(t -> t.isAssignableFrom(valueType))
-                || CharSequence.class.isAssignableFrom(valueType)
-                || Number.class.isAssignableFrom(valueType);
+        return valueType == null || isAtom.test(valueType);
     }
 
     /**

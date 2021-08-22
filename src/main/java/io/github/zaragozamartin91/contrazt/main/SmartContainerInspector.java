@@ -30,6 +30,11 @@ public class SmartContainerInspector {
             return new CollectionInspector((Collection<?>) container, containerName);
         }
 
+        if(containerType.isArray()) {
+            Object[] asArray = (Object[]) container;
+            return new CollectionInspector(Arrays.asList(asArray), containerName);
+        }
+
         if(Map.class.isAssignableFrom(containerType)) {
             return new MapInspector((Map<?, Object>) container, containerName);
         }
