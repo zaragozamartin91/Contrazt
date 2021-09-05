@@ -54,4 +54,10 @@ public interface ContainerProperty {
         String name = getName();
         return name.replaceAll("[{]", ".").replaceAll("[}]", "");
     }
+
+    static String asString(ContainerProperty containerProperty) {
+        String name = containerProperty.getName();
+        Object value = containerProperty.getValue().orElse(null);
+        return String.format("{\"%s\"= %s}", name, value);
+    }
 }

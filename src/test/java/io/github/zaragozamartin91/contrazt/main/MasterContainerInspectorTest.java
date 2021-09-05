@@ -29,7 +29,6 @@ class MasterContainerInspectorTest {
                 }},
                 null
         );
-
         PojoWithNestedPojos pojoWithNestedPojos = new PojoWithNestedPojos(field0, field1, field2, field3);
 
         MasterContainerInspector masterContainerInspector = new MasterContainerInspector(pojoWithNestedPojos, "base_name");
@@ -37,9 +36,7 @@ class MasterContainerInspectorTest {
         // WHEN
         List<ContainerProperty> result = masterContainerInspector.getProperties();
         // printing result...
-        result.forEach(p -> {
-            System.out.println("name = " + p.getName() + " ; value = " + p.getValue());
-        });
+        result.forEach(p -> System.out.println(ContainerProperty.asString(p)));
 
 
         // THEN

@@ -26,6 +26,13 @@ class SingleContraztTest {
         woRoot.forEach(s -> assertFalse(s.startsWith(rootPrefix)));
     }
 
+    @Test
+    void testFlatten() {
+        List<ContainerProperty> flatten = Contrazt.of(new Nested1("one", 2L, 3)).flatten();
+
+        System.out.println(flatten.stream().map(ContainerProperty::asString).collect(Collectors.toList()));
+    }
+
     static class Nested1 {
         private String foo;
         private Nested2 bar;
