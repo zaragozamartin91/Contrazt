@@ -1,0 +1,6 @@
+java.util.concurrent.atomic.AtomicBoolean
+
+foo.bar.baz.MissingType
+
+java.util.concurrent.atomic.AtomicReference
+

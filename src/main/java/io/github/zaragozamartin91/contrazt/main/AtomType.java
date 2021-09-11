@@ -7,11 +7,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 enum AtomType {
     ; // Holds constants for atomic types
 
-    private static final Class<?>[] WRAPPER_TYPES = {
+    private static final Class<?>[] DEFAULT_WRAPPER_TYPES = {
             Byte.class,
             Short.class,
             Integer.class,
@@ -21,9 +22,9 @@ enum AtomType {
             Character.class,
             Boolean.class
     };
-    static final Set<Class<?>> WRAPPERS = Arrays.stream(WRAPPER_TYPES).collect(Collectors.toSet());
+    static final Set<Class<?>> WRAPPERS = Arrays.stream(DEFAULT_WRAPPER_TYPES).collect(Collectors.toSet());
 
-    private static final Class<?>[] ATOMIC_TYPES = {
+    private static final Class<?>[] DEFAULT_ATOMIC_TYPES = {
             CharSequence.class,
             Number.class,
             Date.class,
@@ -31,5 +32,11 @@ enum AtomType {
             Calendar.class,
             Timestamp.class
     };
-    static final Set<Class<?>> ATOMS = Arrays.stream(ATOMIC_TYPES).collect(Collectors.toSet());
+    static final Set<Class<?>> ATOMS;
+
+    static {
+        LoadAtomTypesFromResourceFile loadAtomTypesFromResourceFile = new LoadAtomTypesFromResourceFile();
+        Set<Class<?>> customAtomicTypes = loadAtomTypesFromResourceFile.get();
+        ATOMS = Stream.concat(Arrays.stream(DEFAULT_ATOMIC_TYPES), customAtomicTypes.stream()).collect(Collectors.toSet());
+    }
 }

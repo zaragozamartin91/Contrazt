@@ -2,6 +2,27 @@
 Java library to decompose objects
 
 ---
+
+## Use
+
+Add the library as a maven dependency
+
+```xml
+<!-- https://mvnrepository.com/artifact/io.github.zaragozamartin91/contrazt -->
+<dependency>
+    <groupId>io.github.zaragozamartin91</groupId>
+    <artifactId>contrazt</artifactId>
+    <version>0.0.6</version>
+</dependency>
+```
+
+or as a gradle one:
+
+```groovy
+// https://mvnrepository.com/artifact/io.github.zaragozamartin91/contrazt
+implementation group: 'io.github.zaragozamartin91', name: 'contrazt', version: '0.0.6'
+```
+
 ## Decomposing
 
 Provides methods to flatten an object into its fundamental atoms / atomic fields
@@ -216,3 +237,16 @@ In this example, the result would be:
 ```
 
 The possible comparison results are specified in the `FieldDiffStatus` class
+
+## Custom atomic types
+
+Extra atomic types can be configured by adding a text file named `atomic-types.txt` to the classpath
+
+Atomic types must be specified by their fully qualified name and separated by line breaks `\n` like so:
+
+```txt
+my.custom.atomic.Type1
+my.custom.atomic.Type2
+
+my.custom.atomic.Type3
+```
